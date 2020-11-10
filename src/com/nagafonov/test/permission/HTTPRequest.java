@@ -1,6 +1,9 @@
 package com.nagafonov.test.permission;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.*;
 import java.util.List;
 
@@ -15,6 +18,9 @@ public abstract class HTTPRequest {
     private String dataPost;  // send in post-request
     private String cookie;
     private String contentGet;
+    private String contentPost;
+    private int responseCodeGet;
+    private int responseCodePost;
 
 
     //do first request to get cookie from server and define it for other connections
@@ -59,6 +65,27 @@ public abstract class HTTPRequest {
             httpURLConnection.setRequestProperty("sec-fetch-user", "?1");
             httpURLConnection.setRequestProperty("upgrade-insecure-requests", "1");
             httpURLConnection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36");
+
+
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            outputStream.write(dataPost.getBytes());
+            outputStream.flush();
+            outputStream.close();
+            responseCodePost = httpURLConnection.getResponseCode();
+
+
+            String line = "";
+            InputStreamReader inputStreamReader = new InputStreamReader(httpURLConnection.getInputStream());
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuilder response = new StringBuilder();
+            while ((line = bufferedReader.readLine()) != null) {
+                response.append(line);
+            }
+
+            bufferedReader.close();
+            contentPost = response.toString();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
