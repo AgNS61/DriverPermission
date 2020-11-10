@@ -24,12 +24,16 @@ public class Application {
                     System.out.println("Введите регионт ТС (например, 16, 116 или 716):");
                     int autoCity = Integer.parseInt(bufferedReader.readLine());
                     checkPermission = new CheckPermission(autoNumber, autoCity);
+                    checkPermission.search();
+                    System.out.println(checkPermission.getDriver().toString());
                     break;
 
                 case 2:
                     System.out.println("Введите номер разрешения:");
                     int numberPermission = Integer.parseInt(bufferedReader.readLine());
                     checkPermission = new CheckPermission(numberPermission);
+                    checkPermission.search();
+                    System.out.println(checkPermission.getDriver().toString());
                     break;
 
                 default:

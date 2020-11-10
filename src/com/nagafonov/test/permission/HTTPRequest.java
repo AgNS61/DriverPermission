@@ -17,7 +17,7 @@ public class HTTPRequest {
     private String urlAddressGet = "https://uslugi.tatarstan.ru/taxi_license/check/complete" ;
     private String urlAddressPost = "https://uslugi.tatarstan.ru/taxi_license/check";
     private String dataPost;  // send in post-request, expect from user
-    private String cookie;
+    private String cookie = "";
     private String contentGet;
     private String contentPost;
     private int responseCodeGet;    //response code from server
@@ -145,6 +145,9 @@ public class HTTPRequest {
         }
     }
 
+    public String getContentPost() {
+        return contentPost;
+    }
 
     public void setDataPost(int permNum, String autoNumber, int autoCity) {
         if (autoNumber != null && autoCity != 0) {
@@ -152,5 +155,11 @@ public class HTTPRequest {
         }   else if (autoNumber == null && permNum != 0) {
             dataPost = "taxi_license_check_model[type]=1&taxi_license_check_model[permission_number]=" + permNum;
         }
+    }
+
+    public void doConnect() {
+        defineCookie();
+        sendPostRequest();
+        sendGetRequest();
     }
 }
