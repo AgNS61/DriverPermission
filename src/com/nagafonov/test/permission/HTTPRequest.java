@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class HTTPRequest {
     private URL url;
-    private String urlAddressGet;
+    private String urlAddressGet ;
     private String urlAddressPost;
     private String dataPost;  // send in post-request
     private String cookie;
@@ -90,6 +90,47 @@ public abstract class HTTPRequest {
             e.printStackTrace();
         }
     }
+
+    private void sendGetRequest() {
+        try {
+            url = new URL(urlAddressGet);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setRequestProperty("authority", "uslugi.tatarstan.ru");
+            httpURLConnection.setRequestProperty("method", "GET");
+            httpURLConnection.setRequestProperty("path", "/taxi_license/check/complete/");
+            httpURLConnection.setRequestProperty("scheme", "https");
+            httpURLConnection.setRequestProperty("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpURLConnection.setRequestProperty("cookie", cookie + ";");
+            httpURLConnection.setRequestProperty("accept-language", "ru-RU,ru;q=0.9");
+            httpURLConnection.setRequestProperty("cache-control", "max-age=0");
+            httpURLConnection.setRequestProperty("dnt", "1");
+            httpURLConnection.setRequestProperty("referer", "https://uslugi.tatarstan.ru/taxi_license/check");
+            httpURLConnection.setRequestProperty("sec-fetch-dest", "document");
+            httpURLConnection.setRequestProperty("sec-fetch-mode", "navigate");
+            httpURLConnection.setRequestProperty("sec-fetch-site", "same-origin");
+            httpURLConnection.setRequestProperty("sec-fetch-user", "?1");
+            httpURLConnection.setRequestProperty("upgrade-insecure-requests", "1");
+            httpURLConnection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36");
+
+            responseCodeGet = httpURLConnection.getResponseCode();
+
+            String line = "";
+            InputStreamReader inputStreamReader = new InputStreamReader(httpURLConnection.getInputStream());
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuilder response = new StringBuilder();
+            while ((line = bufferedReader.readLine()) != null) {
+                response.append(line);
+            }
+
+            bufferedReader.close();
+            contentGet = response.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
