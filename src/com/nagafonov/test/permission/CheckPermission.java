@@ -29,19 +29,20 @@ public class CheckPermission {
         if (checkPermission(contentGet)) {
             Document html = Jsoup.parse(contentGet);
             Elements p = html.select("p");
+            String status = p.get(4).text();
             int permNum = Integer.parseInt(p.get(5).text());
             String oranization = p.get(6).text();
             String expireDate = p.get(7).text();
             String autoNumber = p.get(8).text();
             String autoModel = p.get(9).text();
-            driver = new Driver(permNum, oranization, expireDate, autoNumber, autoModel);
+            driver = new Driver(permNum, oranization, expireDate, autoNumber, autoModel, status);
         }
             else System.out.println("По введенным вами данным разрешение не найдено");
     }
 
     // true if permission exists
     private boolean checkPermission(String contentGet) {
-        return contentGet.contains("Разрешение на перевозку пассажиров и багажа легковым такси действительно.");
+        return !contentGet.contains("По введенным вами данным разрешение не найдено");
     }
 
     public Driver getDriver() {

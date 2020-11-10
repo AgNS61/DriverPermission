@@ -12,38 +12,44 @@ public class Application {
 
     public static void main(String[] args) {
         CheckPermission checkPermission;
-        System.out.println("Если Вы хотите проверить водителя по номеру ТС - нажмите 1, по номеру разрешения - нажмите 2");
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            int typeOfCheck = Integer.parseInt(bufferedReader.readLine());
-            switch (typeOfCheck) {
-                case 1:
-                    System.out.println("Введите номер ТС (в формате С000СС или СС000):");
-                    String autoNumber = bufferedReader.readLine();
+        int typeOfCheck = 0;
 
-                    System.out.println("Введите регионт ТС (например, 16, 116 или 716):");
-                    int autoCity = Integer.parseInt(bufferedReader.readLine());
-                    checkPermission = new CheckPermission(autoNumber, autoCity);
-                    checkPermission.search();
+        while (typeOfCheck != 3) {
+            System.out.println("Если Вы хотите проверить водителя по номеру ТС - нажмите 1, по номеру разрешения - нажмите 2");
+            try {
+                typeOfCheck = Integer.parseInt(bufferedReader.readLine());
+                switch (typeOfCheck) {
+                    case 1:
+                        System.out.println("Введите номер ТС (в формате С000СС или СС000):");
+                        String autoNumber = bufferedReader.readLine();
 
-                    if (checkPermission.getDriver() != null) System.out.println(checkPermission.getDriver().toString());
+                        System.out.println("Введите регионт ТС (например, 16, 116 или 716):");
+                        int autoCity = Integer.parseInt(bufferedReader.readLine());
+                        checkPermission = new CheckPermission(autoNumber, autoCity);
+                        checkPermission.search();
 
-                    break;
+                        if (checkPermission.getDriver() != null) System.out.println("\n" + checkPermission.getDriver().toString());
+                        System.out.println("\nЧтобы выйти, введите \"3\" \n");
+                        break;
 
-                case 2:
-                    System.out.println("Введите номер разрешения:");
-                    int numberPermission = Integer.parseInt(bufferedReader.readLine());
-                    checkPermission = new CheckPermission(numberPermission);
-                    checkPermission.search();
-                    if (checkPermission.getDriver() != null) System.out.println(checkPermission.getDriver().toString());
-                    break;
+                    case 2:
+                        System.out.println("Введите номер разрешения:");
+                        int numberPermission = Integer.parseInt(bufferedReader.readLine());
+                        checkPermission = new CheckPermission(numberPermission);
+                        checkPermission.search();
+                        if (checkPermission.getDriver() != null) System.out.println("\n" + checkPermission.getDriver().toString());
+                        System.out.println("\nЧтобы выйти, введите \"3\" \n");
+                        break;
 
-                default:
-                    System.out.println("Неверный ввод!");
-                    System.exit(0);
+                    case 3: break;
+                    default:
+                        System.out.println("Неверный ввод!");
+                        System.exit(0);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
