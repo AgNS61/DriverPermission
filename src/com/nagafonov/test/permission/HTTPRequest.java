@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.*;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,8 @@ public class HTTPRequest {
     private String contentPost;
     private int responseCodeGet;    //response code from server
     private int responseCodePost;
+    private Map<String, String> propertiesForRequests = new HashMap<>();
+
 
 
     //do first request to get cookie from server and define it for other connections
@@ -48,29 +51,36 @@ public class HTTPRequest {
     private void sendPostRequest() {
         try {
             url = new URL(urlAddressPost);
+            insertMap();
 
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
-            httpURLConnection.setRequestProperty("authority", "uslugi.tatarstan.ru");
+            System.out.println(propertiesForRequests.get("cookie"));
+            for (Map.Entry<String, String> entry : propertiesForRequests.entrySet()) {
+                httpURLConnection.setRequestProperty(entry.getKey(), entry.getValue());
+            }
+
             httpURLConnection.setRequestProperty("method", "POST");
             httpURLConnection.setRequestProperty("path", "/taxi_license/check/");
-            httpURLConnection.setRequestProperty("scheme", "https");
-            httpURLConnection.setRequestProperty("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-            httpURLConnection.setRequestProperty("cookie", cookie + ";");
-            httpURLConnection.setRequestProperty("accept-language", "ru-RU,ru;q=0.9");
-            httpURLConnection.setRequestProperty("cache-control", "max-age=0");
             httpURLConnection.setRequestProperty("content-length", "624");
             httpURLConnection.setRequestProperty("content-type", "application/x-www-form-urlencoded");
             httpURLConnection.setRequestProperty("origin", "1");
-            httpURLConnection.setRequestProperty("dnt", "1");
-            httpURLConnection.setRequestProperty("referer", "https://uslugi.tatarstan.ru/taxi_license/check");
-            httpURLConnection.setRequestProperty("sec-fetch-dest", "document");
-            httpURLConnection.setRequestProperty("sec-fetch-mode", "navigate");
-            httpURLConnection.setRequestProperty("sec-fetch-site", "same-origin");
-            httpURLConnection.setRequestProperty("sec-fetch-user", "?1");
-            httpURLConnection.setRequestProperty("upgrade-insecure-requests", "1");
-            httpURLConnection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36");
+
+//            httpURLConnection.setRequestProperty("authority", "uslugi.tatarstan.ru");
+//            httpURLConnection.setRequestProperty("scheme", "https");
+//            httpURLConnection.setRequestProperty("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+//            httpURLConnection.setRequestProperty("cookie", cookie + ";");
+//            httpURLConnection.setRequestProperty("accept-language", "ru-RU,ru;q=0.9");
+//            httpURLConnection.setRequestProperty("cache-control", "max-age=0");
+//            httpURLConnection.setRequestProperty("dnt", "1");
+//            httpURLConnection.setRequestProperty("referer", "https://uslugi.tatarstan.ru/taxi_license/check");
+//            httpURLConnection.setRequestProperty("sec-fetch-dest", "document");
+//            httpURLConnection.setRequestProperty("sec-fetch-mode", "navigate");
+//            httpURLConnection.setRequestProperty("sec-fetch-site", "same-origin");
+//            httpURLConnection.setRequestProperty("sec-fetch-user", "?1");
+//            httpURLConnection.setRequestProperty("upgrade-insecure-requests", "1");
+//            httpURLConnection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36");
 
 
             OutputStream outputStream = httpURLConnection.getOutputStream();
@@ -168,4 +178,24 @@ public class HTTPRequest {
         sendPostRequest();
         sendGetRequest();
     }
+
+
+    private void insertMap(){
+        propertiesForRequests.put("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+        propertiesForRequests.put("authority", "uslugi.tatarstan.ru");
+        propertiesForRequests.put("scheme", "https");
+        propertiesForRequests.put("cookie", cookie + ";");
+        propertiesForRequests.put("accept-language", "ru-RU,ru;q=0.9");
+        propertiesForRequests.put("cache-control", "max-age=0");
+        propertiesForRequests.put("dnt", "1");
+        propertiesForRequests.put("referer", "https://uslugi.tatarstan.ru/taxi_license/check");
+        propertiesForRequests.put("sec-fetch-dest", "document");
+        propertiesForRequests.put("sec-fetch-mode", "navigate");
+        propertiesForRequests.put("sec-fetch-site", "same-origin");
+        propertiesForRequests.put("sec-fetch-user", "?1");
+        propertiesForRequests.put("upgrade-insecure-requests", "1");
+        propertiesForRequests.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36");
+
+    }
 }
+
