@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: Apllication.class
+Class-Path: com.nagafonov.test.permission
+
