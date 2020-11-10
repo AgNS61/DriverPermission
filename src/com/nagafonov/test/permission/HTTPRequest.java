@@ -11,15 +11,16 @@ import java.util.List;
  * @Author Agafonov Nikita agns61.1@gmail.com
  * @create 11/9/2020 7:22 PM
  */
-public abstract class HTTPRequest {
+public class HTTPRequest {
+
     private URL url;
-    private String urlAddressGet ;
-    private String urlAddressPost;
-    private String dataPost;  // send in post-request
+    private String urlAddressGet = "https://uslugi.tatarstan.ru/taxi_license/check/complete" ;
+    private String urlAddressPost = "https://uslugi.tatarstan.ru/taxi_license/check";
+    private String dataPost;  // send in post-request, expect from user
     private String cookie;
     private String contentGet;
     private String contentPost;
-    private int responseCodeGet;
+    private int responseCodeGet;    //response code from server
     private int responseCodePost;
 
 
@@ -39,6 +40,7 @@ public abstract class HTTPRequest {
         }
     }
 
+    //first send post
     private void sendPostRequest() {
         try {
             url = new URL(urlAddressPost);
@@ -91,6 +93,7 @@ public abstract class HTTPRequest {
         }
     }
 
+    //second send get
     private void sendGetRequest() {
         try {
             url = new URL(urlAddressGet);
@@ -131,7 +134,19 @@ public abstract class HTTPRequest {
         }
     }
 
+    // if both requests are succesfully -> continue
+    public String getContentGet() {
+        if (responseCodePost == 200 && responseCodeGet == 200) return contentGet;
+            else {
+            System.out.println("Response from POST: " + responseCodePost);
+            System.out.println("Response from GET: " + responseCodeGet);
+            System.out.println("Error executing!");
+            return null;
+        }
+    }
 
 
-
+    public void setDataPost(String dataPost) {
+        this.dataPost = dataPost;
+    }
 }
