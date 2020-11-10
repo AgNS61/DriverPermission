@@ -36,16 +36,19 @@ public class Application {
                     case 2:
                         System.out.println("Введите номер разрешения:");
                         int numberPermission = Integer.parseInt(bufferedReader.readLine());
-                        checkPermission = new CheckPermission(numberPermission);
-                        checkPermission.search();
-                        if (checkPermission.getDriver() != null) System.out.println("\n" + checkPermission.getDriver().toString());
-                        System.out.println("\nЧтобы выйти, введите \"3\" \n");
-                        break;
-
+                        if (numberPermission !=0 ) {
+                            checkPermission = new CheckPermission(numberPermission);
+                            checkPermission.search();
+                            if (checkPermission.getDriver() != null) System.out.println("\n" + checkPermission.getDriver().toString());
+                            System.out.println("\nЧтобы выйти, введите \"3\" \n");
+                            break;
+                        }  else {
+                            System.out.println("Неверный ввод!");
+                            break;
+                        }
                     case 3: break;
                     default:
                         System.out.println("Неверный ввод!");
-                        System.exit(0);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

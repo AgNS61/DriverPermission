@@ -15,12 +15,13 @@ public class CheckPermission {
 
     //constructor for search by auto number and region
     public CheckPermission(String autoNumber, int autoCity) {
-        httpRequest.setDataPost(autoNumber, autoCity);
+        if (autoNumber!= null && autoCity != 0) httpRequest.setDataPost(autoNumber, autoCity);
     }
 
     //constructor for search by number permission
     public CheckPermission(int numberPermission) {
-        httpRequest.setDataPost(numberPermission);
+        if (numberPermission != 0)
+            httpRequest.setDataPost(numberPermission);
     }
 
     public void search() {
