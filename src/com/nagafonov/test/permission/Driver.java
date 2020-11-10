@@ -5,12 +5,12 @@ package com.nagafonov.test.permission;
  * @create 11/10/2020 5:30 PM
  */
 public class Driver {
-    private int numberPermission;
-    private String statusPermission;
-    private String companyName;
-    private String dateExpire;
-    private String numberAuto;
-    private String numberModel;
+    private final int numberPermission;
+    private final String statusPermission;
+    private final String companyName;
+    private final String dateExpire;
+    private final String numberAuto;
+    private final String numberModel;
 
     public Driver(int numberPermission, String companyName, String dateExpire, String numberAuto, String numberModel, String status) {
         this.numberPermission = numberPermission;

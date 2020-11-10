@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author Agafonov Nikita agns61.1@gmail.com
@@ -14,8 +16,8 @@ import java.util.List;
 public class HTTPRequest {
 
     private URL url;
-    private String urlAddressGet = "https://uslugi.tatarstan.ru/taxi_license/check/complete" ;
-    private String urlAddressPost = "https://uslugi.tatarstan.ru/taxi_license/check";
+    private final String urlAddressGet = "https://uslugi.tatarstan.ru/taxi_license/check/complete" ;
+    private final String urlAddressPost = "https://uslugi.tatarstan.ru/taxi_license/check";
     private String dataPost;  // send in post-request, expect from user
     private String cookie = "";
     private String contentGet;
@@ -31,10 +33,12 @@ public class HTTPRequest {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
             String cookieHeader = httpURLConnection.getHeaderField("Set-Cookie");
+            StringBuilder sb = new StringBuilder();
             List<HttpCookie> cookies = HttpCookie.parse(cookieHeader);
             for (HttpCookie httpCookie : cookies) {
-                cookie += httpCookie;
+                sb.append(httpCookie);
             }
+            cookie = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -149,12 +153,14 @@ public class HTTPRequest {
         return contentPost;
     }
 
-    public void setDataPost(int permNum, String autoNumber, int autoCity) {
+    public void setDataPost(String autoNumber, int autoCity) {
         if (autoNumber != null && autoCity != 0) {
             dataPost = "taxi_license_check_model[type]=0&taxi_license_check_model[auto_number]=" + autoNumber + "&taxi_license_check_model[auto_region]=" + autoCity;
-        }   else if (autoNumber == null && permNum != 0) {
-            dataPost = "taxi_license_check_model[type]=1&taxi_license_check_model[permission_number]=" + permNum;
         }
+    }
+
+    public void setDataPost(int permNum) {
+        if (permNum != 0) dataPost = "taxi_license_check_model[type]=1&taxi_license_check_model[permission_number]=" + permNum;
     }
 
     public void doConnect() {

@@ -9,18 +9,18 @@ import org.jsoup.select.Elements;
  * @create 11/10/2020 5:42 PM
  */
 public class CheckPermission {
-    private HTTPRequest httpRequest = new HTTPRequest();
+    private final HTTPRequest httpRequest = new HTTPRequest();
     private Driver driver;
 
 
     //constructor for search by auto number and region
     public CheckPermission(String autoNumber, int autoCity) {
-        httpRequest.setDataPost(0, autoNumber, autoCity);
+        httpRequest.setDataPost(autoNumber, autoCity);
     }
 
     //constructor for search by number permission
     public CheckPermission(int numberPermission) {
-        httpRequest.setDataPost(numberPermission, null, 0);
+        httpRequest.setDataPost(numberPermission);
     }
 
     public void search() {
