@@ -6,16 +6,22 @@ package com.nagafonov.test.permission;
  */
 public class CheckPermission {
     private String autoNumber;
-    private String autoCity;
+    private int autoCity;
     private int numberPermission;
+    private HTTPRequest httpRequest = new HTTPRequest();
 
-    public CheckPermission(String autoNumber, String autoCity) {
+
+    //constructor for search by auto number and region
+    public CheckPermission(String autoNumber, int autoCity) {
         this.autoNumber = autoNumber;
         this.autoCity = autoCity;
+        httpRequest.setDataPost(0, autoNumber, autoCity);
     }
 
+    //constructor for search by number permission
     public CheckPermission(int numberPermission) {
         this.numberPermission = numberPermission;
+        httpRequest.setDataPost(numberPermission, null, 0);
     }
 
     // true if permission exists

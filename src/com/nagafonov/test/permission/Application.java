@@ -22,7 +22,7 @@ public class Application {
                     String autoNumber = bufferedReader.readLine();
 
                     System.out.println("Введите регионт ТС (например, 16, 116 или 716):");
-                    String autoCity = bufferedReader.readLine();
+                    int autoCity = Integer.parseInt(bufferedReader.readLine());
                     checkPermission = new CheckPermission(autoNumber, autoCity);
                     break;
 

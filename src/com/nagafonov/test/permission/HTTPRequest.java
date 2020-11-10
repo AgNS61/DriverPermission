@@ -146,7 +146,11 @@ public class HTTPRequest {
     }
 
 
-    public void setDataPost(String dataPost) {
-        this.dataPost = dataPost;
+    public void setDataPost(int permNum, String autoNumber, int autoCity) {
+        if (autoNumber != null && autoCity != 0) {
+            dataPost = "taxi_license_check_model[type]=0&taxi_license_check_model[auto_number]=" + autoNumber + "&taxi_license_check_model[auto_region]=" + autoCity;
+        }   else if (autoNumber == null && permNum != 0) {
+            dataPost = "taxi_license_check_model[type]=1&taxi_license_check_model[permission_number]=" + permNum;
+        }
     }
 }
