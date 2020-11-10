@@ -25,7 +25,9 @@ public class Application {
                     int autoCity = Integer.parseInt(bufferedReader.readLine());
                     checkPermission = new CheckPermission(autoNumber, autoCity);
                     checkPermission.search();
-                    System.out.println(checkPermission.getDriver().toString());
+
+                    if (checkPermission.getDriver() != null) System.out.println(checkPermission.getDriver().toString());
+
                     break;
 
                 case 2:
@@ -33,7 +35,7 @@ public class Application {
                     int numberPermission = Integer.parseInt(bufferedReader.readLine());
                     checkPermission = new CheckPermission(numberPermission);
                     checkPermission.search();
-                    System.out.println(checkPermission.getDriver().toString());
+                    if (checkPermission.getDriver() != null) System.out.println(checkPermission.getDriver().toString());
                     break;
 
                 default:

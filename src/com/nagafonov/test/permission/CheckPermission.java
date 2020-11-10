@@ -45,6 +45,7 @@ public class CheckPermission {
     }
 
     public Driver getDriver() {
-        return driver;
+        if (driver != null) return driver;
+        else return null;
     }
 }
