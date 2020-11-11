@@ -29,7 +29,11 @@ public class Application {
                         checkPermission = new CheckPermission(autoNumber, autoCity);
                         checkPermission.search();
 
-                        if (checkPermission.getDriver() != null) System.out.println("\n" + checkPermission.getDriver().toString());
+                        if (checkPermission.getDriver() != null) {
+                            Driver driver = checkPermission.getDriver();
+                            System.out.println("\n" + driver.print());
+                            System.out.println(driver.getGSON());
+                        }
                         System.out.println("\nЧтобы выйти, введите \"3\" \n");
                         break;
 
@@ -41,7 +45,11 @@ public class Application {
                             if (numberPermission !=0) {
                                 checkPermission = new CheckPermission(numberPermission);
                                 checkPermission.search();
-                                if (checkPermission.getDriver() != null) System.out.println("\n" + checkPermission.getDriver().toString());
+                                if (checkPermission.getDriver() != null) {
+                                    Driver driver = checkPermission.getDriver();
+                                    System.out.println("\n" + driver.print());
+                                    System.out.println(driver.getGSON());
+                                }
                                 System.out.println("\nЧтобы выйти, введите \"3\" \n");
                                 break;
                             }  else {

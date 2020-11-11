@@ -1,5 +1,7 @@
 package com.nagafonov.test.permission;
 
+import com.google.gson.Gson;
+
 /**
  * @Author Agafonov Nikita agns61.1@gmail.com
  * @create 11/10/2020 5:30 PM
@@ -21,14 +23,20 @@ public class Driver {
         this.statusPermission = status;
     }
 
-    @Override
-    public String toString() {
+    public String print() {
         return  "\n" + statusPermission
                 + "\nНомер разрешения: " + numberPermission
                 + "\nНаименование юридического лица: " + companyName
                 + "\nСрок действия разрешения: " + dateExpire
                 + "\nНомер транспортного средства: " + numberAuto
                 + "\nМарка и модель ТС: " + numberModel;
+    }
+
+    public String getGSON() {
+        Gson gson = new Gson();
+        String gs = gson.toJson(this);
+        System.out.println(gs);
+        return gs;
     }
 }
 
