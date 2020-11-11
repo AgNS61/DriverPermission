@@ -55,6 +55,7 @@ public class HTTPRequest {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
+
             for (Map.Entry<String, String> entry : propertiesForRequests.entrySet()) {
                 httpURLConnection.setRequestProperty(entry.getKey(), entry.getValue());
             }
@@ -64,22 +65,6 @@ public class HTTPRequest {
             httpURLConnection.setRequestProperty("content-length", "624");
             httpURLConnection.setRequestProperty("content-type", "application/x-www-form-urlencoded");
             httpURLConnection.setRequestProperty("origin", "1");
-
-//            httpURLConnection.setRequestProperty("authority", "uslugi.tatarstan.ru");
-//            httpURLConnection.setRequestProperty("scheme", "https");
-//            httpURLConnection.setRequestProperty("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-//            httpURLConnection.setRequestProperty("cookie", cookie + ";");
-//            httpURLConnection.setRequestProperty("accept-language", "ru-RU,ru;q=0.9");
-//            httpURLConnection.setRequestProperty("cache-control", "max-age=0");
-//            httpURLConnection.setRequestProperty("dnt", "1");
-//            httpURLConnection.setRequestProperty("referer", "https://uslugi.tatarstan.ru/taxi_license/check");
-//            httpURLConnection.setRequestProperty("sec-fetch-dest", "document");
-//            httpURLConnection.setRequestProperty("sec-fetch-mode", "navigate");
-//            httpURLConnection.setRequestProperty("sec-fetch-site", "same-origin");
-//            httpURLConnection.setRequestProperty("sec-fetch-user", "?1");
-//            httpURLConnection.setRequestProperty("upgrade-insecure-requests", "1");
-//            httpURLConnection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36");
-
 
             OutputStream outputStream = httpURLConnection.getOutputStream();
             outputStream.write(dataPost.getBytes());
@@ -112,22 +97,13 @@ public class HTTPRequest {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.setDoOutput(true);
-            httpURLConnection.setRequestProperty("authority", "uslugi.tatarstan.ru");
+
+            for (Map.Entry<String, String> entry : propertiesForRequests.entrySet()) {
+                httpURLConnection.setRequestProperty(entry.getKey(), entry.getValue());
+            }
+
             httpURLConnection.setRequestProperty("method", "GET");
             httpURLConnection.setRequestProperty("path", "/taxi_license/check/complete/");
-            httpURLConnection.setRequestProperty("scheme", "https");
-            httpURLConnection.setRequestProperty("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-            httpURLConnection.setRequestProperty("cookie", cookie + ";");
-            httpURLConnection.setRequestProperty("accept-language", "ru-RU,ru;q=0.9");
-            httpURLConnection.setRequestProperty("cache-control", "max-age=0");
-            httpURLConnection.setRequestProperty("dnt", "1");
-            httpURLConnection.setRequestProperty("referer", "https://uslugi.tatarstan.ru/taxi_license/check");
-            httpURLConnection.setRequestProperty("sec-fetch-dest", "document");
-            httpURLConnection.setRequestProperty("sec-fetch-mode", "navigate");
-            httpURLConnection.setRequestProperty("sec-fetch-site", "same-origin");
-            httpURLConnection.setRequestProperty("sec-fetch-user", "?1");
-            httpURLConnection.setRequestProperty("upgrade-insecure-requests", "1");
-            httpURLConnection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36");
 
             responseCodeGet = httpURLConnection.getResponseCode();
 
