@@ -32,6 +32,8 @@ public class Driver {
                 + "\nМарка и модель ТС: " + numberModel;
     }
 
+
+    // return json object
     public String getGSON() {
         Gson gson = new Gson();
         String gs = gson.toJson(this);

@@ -13,13 +13,16 @@ import java.util.Map;
  * @Author Agafonov Nikita agns61.1@gmail.com
  * @create 11/9/2020 7:22 PM
  */
-public class HTTPRequest {
 
+/*
+This class does request to server and return content from get request
+*/
+public class HTTPRequest {
     private URL url;
     private final String urlAddressGet = "https://uslugi.tatarstan.ru/taxi_license/check/complete" ;
     private final String urlAddressPost = "https://uslugi.tatarstan.ru/taxi_license/check";
     private String dataPost;  // send in post-request, expect from user
-    private String cookie = "";
+    private String cookie = ""; // DON'T TOUCH IT!
     private String contentGet;
     private String contentPost;
     private int responseCodeGet;    //response code from server
@@ -28,7 +31,7 @@ public class HTTPRequest {
 
 
 
-    //do first request to get cookie from server and define it for other connections
+    //do first request to get cookie from server and set it for other connections
     private void defineCookie() {
         try {
             url = new URL(urlAddressPost);
@@ -50,7 +53,7 @@ public class HTTPRequest {
     private void sendPostRequest() {
         try {
             url = new URL(urlAddressPost);
-            insertMap();
+            insertMap(); // init our properties
 
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -72,7 +75,6 @@ public class HTTPRequest {
             outputStream.close();
             responseCodePost = httpURLConnection.getResponseCode();
 
-
             String line = "";
             InputStreamReader inputStreamReader = new InputStreamReader(httpURLConnection.getInputStream());
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -83,8 +85,6 @@ public class HTTPRequest {
 
             bufferedReader.close();
             contentPost = response.toString();
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -137,12 +137,14 @@ public class HTTPRequest {
         return contentPost;
     }
 
+    // set request data from user
     public void setDataPost(String autoNumber, int autoCity) {
         if (autoNumber != null && autoCity != 0) {
             dataPost = "taxi_license_check_model[type]=0&taxi_license_check_model[auto_number]=" + autoNumber + "&taxi_license_check_model[auto_region]=" + autoCity;
         }
     }
 
+    // set request data from user
     public void setDataPost(int permNum) {
         if (permNum != 0) dataPost = "taxi_license_check_model[type]=1&taxi_license_check_model[permission_number]=" + permNum;
     }
@@ -153,7 +155,7 @@ public class HTTPRequest {
         sendGetRequest();
     }
 
-
+    // put general properties in our map
     private void insertMap(){
         propertiesForRequests.put("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
         propertiesForRequests.put("authority", "uslugi.tatarstan.ru");

@@ -33,7 +33,7 @@ public class CheckPermission {
     public void search() {
         httpRequest.doConnect(); // set connection
         String contentGet = httpRequest.getContentGet(); // take content from get request
-        if (checkPermission(contentGet)) {
+        if (contentGet != null && checkPermission(contentGet)) {
             Document html = Jsoup.parse(contentGet); // if exists
             Elements p = html.select("p"); // get elements <p>
             String status = p.get(4).text();
@@ -43,6 +43,8 @@ public class CheckPermission {
             String autoNumber = p.get(8).text();
             String autoModel = p.get(9).text();
             driver = new Driver(permNum, oranization, expireDate, autoNumber, autoModel, status);
+        } else if (contentGet == null) {
+            System.out.println("Connection error!");
         }
             else System.out.println("По введенным вами данным разрешение не найдено");
     }
@@ -56,6 +58,6 @@ public class CheckPermission {
     // DEFINITELY catch NPE if you will use it
     public Driver getDriver(){
         if (driver != null) return driver;
-        else throw new NullPointerException();
+        else return null;
     }
 }
