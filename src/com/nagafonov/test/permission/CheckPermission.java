@@ -54,7 +54,7 @@ public class CheckPermission {
 
 
     // DEFINITELY catch NPE if you will use it
-    public Driver getDriver() {
+    public Driver getDriver(){
         if (driver != null) return driver;
         else throw new NullPointerException();
     }

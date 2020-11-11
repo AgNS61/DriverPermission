@@ -11,6 +11,47 @@ import java.io.InputStreamReader;
 public class Application {
 
     public static void main(String[] args) {
+//  if you want to do check in system console
+        checkByConsole();
+
+
+
+// You can use it if you accepts values from another method
+
+/*
+//        choose one of them
+//    CheckPermission checkPermission = checkByPermNun(31412);
+//    CheckPermission checkPermission = checkByAuto("У578НС", 111116);
+    Driver driver;
+    try {
+        driver = checkPermission.getDriver();
+        System.out.println(driver.print() + "\n");
+        System.out.println(driver.getGSON());
+    } catch (NullPointerException n) {
+//        n.printStackTrace();
+    }*/
+
+    }
+
+
+//    search by permission's number
+    public static CheckPermission checkByPermNun(int numberPermission) {
+        CheckPermission checkPermission = new CheckPermission(numberPermission);
+        checkPermission.search();
+        return checkPermission;
+
+// search by car's number and city's code
+    }
+
+    public static CheckPermission checkByAuto(String autoNumber, int autoCity) {
+        CheckPermission checkPermission = new CheckPermission(autoNumber, autoCity);
+        checkPermission.search();
+        return checkPermission;
+    }
+
+// search in system console
+// this method print result in console
+    public static void checkByConsole() {
         CheckPermission checkPermission;
 
         String typeOfCheck = "0"; // field for choose type of search or exit
@@ -36,6 +77,7 @@ public class Application {
                             Driver driver = checkPermission.getDriver();
                             System.out.println("\n" + driver.print());
 
+//                            if you want to print json object
 //                            System.out.println(driver.getGSON());
                         }
                         System.out.println("\nЧтобы выйти, введите \"3\" \n");
@@ -53,6 +95,7 @@ public class Application {
                                     Driver driver = checkPermission.getDriver();
                                     System.out.println("\n" + driver.print());
 
+ //                                   if you want to print json object
 //                                    System.out.println(driver.getGSON());
                                 }
                                 System.out.println("\nЧтобы выйти, введите \"3\" \n");
@@ -79,6 +122,5 @@ public class Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
