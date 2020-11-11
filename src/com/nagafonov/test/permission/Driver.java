@@ -35,7 +35,6 @@ public class Driver {
     public String getGSON() {
         Gson gson = new Gson();
         String gs = gson.toJson(this);
-        System.out.println(gs);
         return gs;
     }
 }

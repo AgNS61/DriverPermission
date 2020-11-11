@@ -8,6 +8,13 @@ import org.jsoup.select.Elements;
  * @Author Agafonov Nikita agns61.1@gmail.com
  * @create 11/10/2020 5:42 PM
  */
+
+
+/*
+This class accepts number permission or number auto
+ and gives you Driver object if it exists
+*/
+
 public class CheckPermission {
     private final HTTPRequest httpRequest = new HTTPRequest();
     private Driver driver;
@@ -20,16 +27,15 @@ public class CheckPermission {
 
     //constructor for search by number permission
     public CheckPermission(int numberPermission) {
-        if (numberPermission != 0)
-            httpRequest.setDataPost(numberPermission);
+        if (numberPermission != 0) httpRequest.setDataPost(numberPermission);
     }
 
     public void search() {
-        httpRequest.doConnect();
-        String contentGet = httpRequest.getContentGet();
+        httpRequest.doConnect(); // set connection
+        String contentGet = httpRequest.getContentGet(); // take content from get request
         if (checkPermission(contentGet)) {
-            Document html = Jsoup.parse(contentGet);
-            Elements p = html.select("p");
+            Document html = Jsoup.parse(contentGet); // if exists
+            Elements p = html.select("p"); // get elements <p>
             String status = p.get(4).text();
             int permNum = Integer.parseInt(p.get(5).text());
             String oranization = p.get(6).text();
@@ -46,8 +52,10 @@ public class CheckPermission {
         return !contentGet.contains("По введенным вами данным разрешение не найдено");
     }
 
+
+    // DEFINITELY catch NPE if you will use it
     public Driver getDriver() {
         if (driver != null) return driver;
-        else return null;
+        else throw new NullPointerException();
     }
 }

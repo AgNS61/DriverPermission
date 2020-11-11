@@ -13,26 +13,30 @@ public class Application {
     public static void main(String[] args) {
         CheckPermission checkPermission;
 
-        String typeOfCheck = "0";
+        String typeOfCheck = "0"; // field for choose type of search or exit
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        while (!typeOfCheck.equals("3")) {
+        while (!typeOfCheck.equals("3")) {      // 3 - exit
+
             System.out.println("Если Вы хотите проверить водителя по номеру ТС - нажмите 1, по номеру разрешения - нажмите 2");
             try {
                 typeOfCheck = bufferedReader.readLine();
                 switch (typeOfCheck) {
+
                     case "1":
                         System.out.println("Введите номер ТС (в формате С000СС или СС000):");
                         String autoNumber = bufferedReader.readLine();
 
                         System.out.println("Введите регионт ТС (например, 16, 116 или 716):");
                         int autoCity = Integer.parseInt(bufferedReader.readLine());
-                        checkPermission = new CheckPermission(autoNumber, autoCity);
+
+                        checkPermission = new CheckPermission(autoNumber, autoCity); // create our search object
                         checkPermission.search();
 
                         if (checkPermission.getDriver() != null) {
                             Driver driver = checkPermission.getDriver();
                             System.out.println("\n" + driver.print());
-                            System.out.println(driver.getGSON());
+
+//                            System.out.println(driver.getGSON());
                         }
                         System.out.println("\nЧтобы выйти, введите \"3\" \n");
                         break;
@@ -48,7 +52,8 @@ public class Application {
                                 if (checkPermission.getDriver() != null) {
                                     Driver driver = checkPermission.getDriver();
                                     System.out.println("\n" + driver.print());
-                                    System.out.println(driver.getGSON());
+
+//                                    System.out.println(driver.getGSON());
                                 }
                                 System.out.println("\nЧтобы выйти, введите \"3\" \n");
                                 break;
