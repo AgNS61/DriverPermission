@@ -12,15 +12,15 @@ public class Application {
 
     public static void main(String[] args) {
         CheckPermission checkPermission;
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        int typeOfCheck = 0;
 
-        while (typeOfCheck != 3) {
+        String typeOfCheck = "0";
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        while (!typeOfCheck.equals("3")) {
             System.out.println("Если Вы хотите проверить водителя по номеру ТС - нажмите 1, по номеру разрешения - нажмите 2");
             try {
-                typeOfCheck = Integer.parseInt(bufferedReader.readLine());
+                typeOfCheck = bufferedReader.readLine();
                 switch (typeOfCheck) {
-                    case 1:
+                    case "1":
                         System.out.println("Введите номер ТС (в формате С000СС или СС000):");
                         String autoNumber = bufferedReader.readLine();
 
@@ -33,20 +33,27 @@ public class Application {
                         System.out.println("\nЧтобы выйти, введите \"3\" \n");
                         break;
 
-                    case 2:
+                    case "2":
                         System.out.println("Введите номер разрешения:");
-                        int numberPermission = Integer.parseInt(bufferedReader.readLine());
-                        if (numberPermission !=0 ) {
-                            checkPermission = new CheckPermission(numberPermission);
-                            checkPermission.search();
-                            if (checkPermission.getDriver() != null) System.out.println("\n" + checkPermission.getDriver().toString());
-                            System.out.println("\nЧтобы выйти, введите \"3\" \n");
-                            break;
-                        }  else {
-                            System.out.println("Неверный ввод!");
-                            break;
+                        int numberPermission = 0;
+                        try {
+                            numberPermission= Integer.parseInt(bufferedReader.readLine());
+                            if (numberPermission !=0) {
+                                checkPermission = new CheckPermission(numberPermission);
+                                checkPermission.search();
+                                if (checkPermission.getDriver() != null) System.out.println("\n" + checkPermission.getDriver().toString());
+                                System.out.println("\nЧтобы выйти, введите \"3\" \n");
+                                break;
+                            }  else {
+                                System.out.println("Неверный ввод!");
+                                break;
+                            }
+                        } catch (NumberFormatException s) {
+                            System.out.println("Неверный номер разрешения!");
+//                            s.printStackTrace();
                         }
-                    case 3: break;
+
+                    case "3": break;
                     default:
                         System.out.println("Неверный ввод!");
                 }
@@ -54,5 +61,11 @@ public class Application {
                 e.printStackTrace();
             }
         }
+        try {
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
