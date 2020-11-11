@@ -22,7 +22,7 @@ public class CheckPermission {
 
     //constructor for search by auto number and region
     public CheckPermission(String autoNumber, int autoCity) {
-        if (autoNumber!= null && autoCity != 0) httpRequest.setDataPost(autoNumber, autoCity);
+        if (autoNumber!= null && autoCity != 0) httpRequest.setDataPost(autoNumber.toUpperCase(), autoCity);
     }
 
     //constructor for search by number permission
@@ -45,6 +45,7 @@ public class CheckPermission {
             driver = new Driver(permNum, oranization, expireDate, autoNumber, autoModel, status);
         } else if (contentGet == null) {
             System.out.println("Connection error!");
+            System.exit(-1);
         }
             else System.out.println("По введенным вами данным разрешение не найдено");
     }

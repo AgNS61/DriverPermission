@@ -68,20 +68,27 @@ public class Application {
                         String autoNumber = bufferedReader.readLine();
 
                         System.out.println("Введите регионт ТС (например, 16, 116 или 716):");
-                        int autoCity = Integer.parseInt(bufferedReader.readLine());
+                        try {
+                            int autoCity = Integer.parseInt(bufferedReader.readLine());
+                            checkPermission = new CheckPermission(autoNumber, autoCity); // create our search object
+                            checkPermission.search();
 
-                        checkPermission = new CheckPermission(autoNumber, autoCity); // create our search object
-                        checkPermission.search();
-
-                        if (checkPermission.getDriver() != null) {
-                            Driver driver = checkPermission.getDriver();
-                            System.out.println("\n" + driver.print());
+                            if (checkPermission.getDriver() != null) {
+                                Driver driver = checkPermission.getDriver();
+                                System.out.println("\n" + driver.print());
 
 //                            if you want to print json object
 //                            System.out.println(driver.getGSON());
-                        }
-                        System.out.println("\nЧтобы выйти, введите \"3\" \n");
+                            }
+                            System.out.println("\nЧтобы выйти, введите \"3\" \n");
+                            break;
+                        } catch (NumberFormatException s) {
+                        System.out.println("Неверный номер региона!");
+//                            s.printStackTrace();
                         break;
+                    }
+
+
 
                     case "2":
                         System.out.println("Введите номер разрешения:");
@@ -107,6 +114,7 @@ public class Application {
                         } catch (NumberFormatException s) {
                             System.out.println("Неверный номер разрешения!");
 //                            s.printStackTrace();
+                            break;
                         }
 
                     case "3": break;
